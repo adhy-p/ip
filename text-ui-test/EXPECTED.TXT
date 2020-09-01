@@ -11,27 +11,27 @@ What can I do for you?
 -----------------------------------
 root@PC:~# -----------------------------------
 Got it. I've added this task:
-[T][X] task1
+[T][✘] task1
 Now you have 1 tasks in the list.
 -----------------------------------
 root@PC:~# -----------------------------------
 Got it. I've added this task:
-[D][X] task2 (by: tomorrow)
+[D][✘] task2 (by: tomorrow)
 Now you have 2 tasks in the list.
 -----------------------------------
 root@PC:~# -----------------------------------
 Got it. I've added this task:
-[E][X] task2 (at: Sunday)
+[E][✘] task2 (at: Sunday)
 Now you have 3 tasks in the list.
 -----------------------------------
 root@PC:~# -----------------------------------
-1. [T][X] task1
-2. [D][X] task2 (by: tomorrow)
-3. [E][X] task2 (at: Sunday)
+1. [T][✘] task1
+2. [D][✘] task2 (by: tomorrow)
+3. [E][✘] task2 (at: Sunday)
 -----------------------------------
 root@PC:~# -----------------------------------
 Nice! I've marked this task as done:
-[V] task2
+[✓] task2
 -----------------------------------
 root@PC:~# -----------------------------------
 Invalid index!
