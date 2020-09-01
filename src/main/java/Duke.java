@@ -38,7 +38,7 @@ public class Duke {
         }
 
         printLine();
-        System.out.println("Got it. I've added this task: ");
+        System.out.println("Got it. I've added this task:");
         System.out.println(tasks.get(tasks.size() - 1));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         printLine();
@@ -77,7 +77,7 @@ public class Duke {
             tasks.get(index - 1).markAsDone();
             printLine();
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("[\u2713] " + tasks.get(index - 1).getDescription());
+            System.out.println("[V] " + tasks.get(index - 1).getDescription());
         } else {
             printLine();
             System.out.println("Invalid index!");
