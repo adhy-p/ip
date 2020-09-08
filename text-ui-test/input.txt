@@ -1,7 +1,11 @@
+list
+done
 todo task1
 deadline task2 /by tomorrow
 event task2 /at Sunday
 list
+deadline task3
+event /at
 done 2
 done 5
 bye
