@@ -9,12 +9,22 @@ public class Task {
         this.isDone = false;
     }
 
+    Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "[\u2713]" : "[\u2718]"); //return tick or X symbols
     }
-
+    public String getTaskType(){
+        return "To be overridden by subclass";
+    }
     public String getDescription() {
         return description;
+    }
+    public boolean getDoneStatus(){
+        return isDone;
     }
 
     public void markAsDone() {
