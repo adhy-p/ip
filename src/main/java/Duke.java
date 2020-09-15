@@ -145,7 +145,15 @@ public class Duke {
         System.out.println("[\u2713] " + tasks.get(index - 1).getDescription());
         printLine();
     }
-
+    public static void deleteTask(int index) {
+        // todo: throw exception when index is invalid
+        printLine();
+        System.out.println("Got it! I've removed this task:");
+        System.out.println(tasks.get(index - 1));
+        tasks.remove(index - 1);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        printLine();
+    }
     public static int handleInput(String input) {
         if (input.trim().equals("bye")) {
             return 0;
@@ -167,6 +175,11 @@ public class Duke {
                 System.out.println("Done using the program? You should type \"bye\" instead.");
                 printLine();
             }
+        } else if (input.startsWith("delete")){
+            // todo: throw exception when index is invalid
+            int index;
+            index = Integer.parseInt(input.split("delete")[1].trim());
+            deleteTask(index);
         } else {
             addToList(input);
         }
