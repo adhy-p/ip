@@ -15,9 +15,9 @@ public class Storage {
     private static final String FILEPATH = "data/saveData.txt";
     private static final String SAVEDIR = "data";
 
-    public static void saveData(ArrayList<Task> tasks) throws IOException{
+    public static void saveData(ArrayList<Task> tasks) throws IOException {
         StringBuilder line = new StringBuilder();
-        for(Task task: tasks){
+        for (Task task : tasks) {
             line.append(serializeTask(task));
         }
 
@@ -26,16 +26,16 @@ public class Storage {
         fw.close();
     }
 
-    public static ArrayList<Task> loadData() throws FileNotFoundException{
+    public static ArrayList<Task> loadData() throws FileNotFoundException {
         File directory = new File(SAVEDIR);
-        if(!directory.exists()){
-            if(directory.mkdir()){
+        if (!directory.exists()) {
+            if (directory.mkdir()) {
                 System.out.println("Successfully created a new directory for save file");
             }
         } else {
             File f = new File(FILEPATH); // create a File for the given file path
             Scanner s = new Scanner(f); // create a scanner using the file as the source
-            while(s.hasNext()){
+            while (s.hasNext()) {
                 tasks.add(deserializeTask(s.nextLine()));
             }
         }
@@ -43,7 +43,7 @@ public class Storage {
         return tasks;
     }
 
-    private static Task deserializeTask(String serializedTask){
+    private static Task deserializeTask(String serializedTask) {
         Task task = null;
         String[] splitTask = serializedTask.split("\\|");
 
@@ -51,18 +51,18 @@ public class Storage {
         boolean isDone = splitTask[1].equals("1");
         String description = splitTask[2].trim();
 
-        switch (taskType){
+        switch (taskType) {
         case "T":
-           task = new Todo(description, isDone);
-           break;
+            task = new Todo(description, isDone);
+            break;
         case "D":
-           String by = splitTask[3].trim();
-           task = new Deadline(description, by, isDone);
-           break;
+            String by = splitTask[3].trim();
+            task = new Deadline(description, by, isDone);
+            break;
         case "E":
-           String at = splitTask[3].trim();
-           task = new Event(description, at, isDone);
-           break;
+            String at = splitTask[3].trim();
+            task = new Event(description, at, isDone);
+            break;
         }
         return task;
     }
@@ -70,7 +70,7 @@ public class Storage {
     // T|1/0|Description
     // D|1/0|Description|by
     // E|1/0|Description|at
-    private static String serializeTask(Task task){
+    private static String serializeTask(Task task) {
         String result = "";
         result += task.getTaskType() + "|";
         result += (task.getDoneStatus() ? 1 : 0) + "|";
