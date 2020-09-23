@@ -5,14 +5,11 @@ import task.Todo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class Duke {
     private static ArrayList<Task> tasks = new ArrayList<>();
-    private static final String FILEPATH = "data/saveData.txt";
 
     public static void printLine() {
         System.out.println("----------------------------------------------");
@@ -191,84 +188,26 @@ public class Duke {
         return 1;
     }
 
-    private static void saveData() throws IOException{
-        StringBuilder line = new StringBuilder();
-        for(Task task: tasks){
-            line.append(serializeTask(task));
-        }
-        FileWriter fw = new FileWriter(FILEPATH);
-        fw.write(line.toString());
-        fw.close();
-    }
-
-    private static void loadData() throws FileNotFoundException{
-        File f = new File(FILEPATH); // create a File for the given file path
-        Scanner s = new Scanner(f); // create a scanner using the file as the source
-        while(s.hasNext()){
-            tasks.add(deserializeTask(s.nextLine()));
-        }
-    }
-
-    private static Task deserializeTask(String serializedTask){
-        Task task = null;
-        String[] splitTask = serializedTask.split("\\|");
-
-        String taskType = splitTask[0];
-        boolean isDone = splitTask[1].equals("1");
-        String description = splitTask[2].trim();
-
-        switch (taskType){
-        case "T":
-           task = new Todo(description, isDone);
-           break;
-        case "D":
-           String by = splitTask[3].trim();
-           task = new Deadline(description, by, isDone);
-           break;
-        case "E":
-           String at = splitTask[3].trim();
-           task = new Event(description, at, isDone);
-           break;
-        }
-        return task;
-    }
-
-    // T|1/0|Description
-    // D|1/0|Description|by
-    // E|1/0|Description|at
-    private static String serializeTask(Task task){
-        String result = "";
-        result += task.getTaskType() + "|";
-        result += (task.getDoneStatus() ? 1 : 0) + "|";
-        result += task.getDescription();
-
-        if (task instanceof Deadline) {
-            result += "|" + ((Deadline) task).getBy();
-        } else if (task instanceof Event) {
-            result += "|" + ((Event) task).getAt();
-        }
-
-        return result + "\n";
-    }
-
+    private static Storage storage;
     public static void main(String[] args) {
         greet();
         Scanner in = new Scanner(System.in);
         String input;
         try{
-            loadData();
-        } catch(FileNotFoundException e) {
-            // no save data, do nothing.
+            tasks = Storage.loadData();
+        } catch(FileNotFoundException f) {
+            System.out.println("Error: save file not found");
         }
+
         do {
             System.out.print("root@PC:~# ");
             input = in.nextLine();
+            try {
+                Storage.saveData(tasks);
+            } catch (IOException e){
+                System.out.println("Failed to write data");
+            }
         } while (handleInput(input) == 1);
-        try {
-            saveData(); //todo: implement an efficient method to save data each time receiving input
-        } catch (IOException e){
-            System.out.println("Failed to write data");
-        }
         bye();
         in.close();
     }
