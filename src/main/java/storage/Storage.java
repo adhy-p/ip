@@ -1,3 +1,5 @@
+package storage;
+
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -11,29 +13,33 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private static ArrayList<Task> tasks = new ArrayList<>();
-    private static final String FILEPATH = "data/saveData.txt";
-    private static final String SAVEDIR = "data";
+    private ArrayList<Task> tasks = new ArrayList<>();
+    private String filePath;
+    private final String SAVEDIR = "data";
 
-    public static void saveData(ArrayList<Task> tasks) throws IOException {
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public void saveData(ArrayList<Task> tasks) throws IOException {
         StringBuilder line = new StringBuilder();
         for (Task task : tasks) {
             line.append(serializeTask(task));
         }
 
-        FileWriter fw = new FileWriter(FILEPATH);
+        FileWriter fw = new FileWriter(filePath);
         fw.write(line.toString());
         fw.close();
     }
 
-    public static ArrayList<Task> loadData() throws FileNotFoundException {
+    public ArrayList<Task> loadData() throws FileNotFoundException {
         File directory = new File(SAVEDIR);
         if (!directory.exists()) {
             if (directory.mkdir()) {
                 System.out.println("Successfully created a new directory for save file");
             }
         } else {
-            File f = new File(FILEPATH); // create a File for the given file path
+            File f = new File(filePath); // create a File for the given file path
             Scanner s = new Scanner(f); // create a scanner using the file as the source
             while (s.hasNext()) {
                 tasks.add(deserializeTask(s.nextLine()));
@@ -43,7 +49,7 @@ public class Storage {
         return tasks;
     }
 
-    private static Task deserializeTask(String serializedTask) {
+    private Task deserializeTask(String serializedTask) {
         Task task = null;
         String[] splitTask = serializedTask.split("\\|");
 
@@ -70,7 +76,7 @@ public class Storage {
     // T|1/0|Description
     // D|1/0|Description|by
     // E|1/0|Description|at
-    private static String serializeTask(Task task) {
+    private String serializeTask(Task task) {
         String result = "";
         result += task.getTaskType() + "|";
         result += (task.getDoneStatus() ? 1 : 0) + "|";

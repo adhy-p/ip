@@ -1,8 +1,12 @@
+package ui;
+
 import task.Task;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class UI {
+    private static Scanner in = new Scanner(System.in);
 
     private static void printLine() {
         System.out.println("----------------------------------------------");
@@ -16,13 +20,15 @@ public class UI {
     }
 
     public static void bye() {
+        in.close();
         printLine();
         System.out.println("Bye. Hope to see you soon!");
         printLine();
     }
 
-    public static void prompt() {
+    public static String prompt() {
         System.out.print("root@PC:~# ");
+        return in.nextLine();
     }
 
     public static void addToListMessage(ArrayList<Task> tasks) {
@@ -94,10 +100,20 @@ public class UI {
     }
 
     public static void failToWriteMessage() {
+        printLine();
         System.out.println("Failed to write data");
+        printLine();
     }
 
     public static void fileNotFoundMessage() {
+        printLine();
         System.out.println("Error: save file not found");
+        printLine();
+    }
+
+    public static void invalidArgumentMessage() {
+        printLine();
+        System.out.println("Invalid argument. Please try again.");
+        printLine();
     }
 }
