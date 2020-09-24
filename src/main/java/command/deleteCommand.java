@@ -12,7 +12,6 @@ public class deleteCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Storage storage) {
-        // todo: handle exception for invalid index
         // index - 1 will be done at task.TaskList.deleteFromList
         tasks.deleteFromList(index);
     }

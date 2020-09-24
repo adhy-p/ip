@@ -56,15 +56,15 @@ public class Parser {
                 UI.noDescriptionExceptionMessage();
                 throw new DukeInvalidArgumentException();
             }
-            String description, by;
+            String description, timeOfEvent;
             try {
                 description = deadlineDetails.split("/by")[0].trim();
-                by = deadlineDetails.split("/by")[1].trim();
+                timeOfEvent = deadlineDetails.split("/by")[1].trim();
             } catch (IndexOutOfBoundsException e) {
                 UI.notEnoughArgumentsMessage();
                 throw new DukeInvalidArgumentException();
             }
-            return new eventDeadlineCommand(TYPE, description, by);
+            return new eventDeadlineCommand(TYPE, description, timeOfEvent);
         }
         if (input.startsWith("event")) {
             final String TYPE = "event";
@@ -75,15 +75,15 @@ public class Parser {
                 UI.noDescriptionExceptionMessage();
                 throw new DukeInvalidArgumentException();
             }
-            String description, at;
+            String description, timeOfEvent;
             try {
                 description = eventDetails.split("/at")[0].trim();
-                at = eventDetails.split("/at")[1].trim();
+                timeOfEvent = eventDetails.split("/at")[1].trim();
             } catch (IndexOutOfBoundsException e) {
                 UI.notEnoughArgumentsMessage();
                 throw new DukeInvalidArgumentException();
             }
-            return new eventDeadlineCommand(TYPE, description, at);
+            return new eventDeadlineCommand(TYPE, description, timeOfEvent);
         }
 
         // default

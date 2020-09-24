@@ -12,30 +12,32 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
 
-    public Duke(String filePath){
+    public Duke(String filePath) {
         storage = new Storage(filePath);
-        try{
+        try {
             tasks = new TaskList(storage.loadData());
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             UI.fileNotFoundMessage();
             tasks = new TaskList();
         }
     }
 
-    public void run(){
+    public void run() {
         UI.greet();
         boolean isExit = false;
-        while(!isExit){
+        while (!isExit) {
             try {
                 String input = UI.prompt();
                 Command c = Parser.parse(tasks, input);
                 c.execute(tasks, storage);
                 isExit = c.isExit();
             } catch (DukeInvalidArgumentException e) {
+                // todo: improve error messages
                 UI.invalidArgumentMessage();
             }
         }
     }
+
     public static void main(String[] args) {
         new Duke(FILEPATH).run();
     }

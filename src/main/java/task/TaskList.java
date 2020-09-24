@@ -22,7 +22,6 @@ public class TaskList {
     }
 
     public void deleteFromList(int index) {
-        // todo: throw exception when index is invalid
         String deletedTask = tasks.get(index - 1).toString();
         tasks.remove(index - 1);
         int size = tasks.size();
@@ -31,7 +30,7 @@ public class TaskList {
 
     public void markAsDone(int index) throws DukeInvalidArgumentException {
         try {
-            tasks.get(index - 1).markAsDone();
+            tasks.get(index - 1).setDoneStatus();
         } catch (IndexOutOfBoundsException e) {
             throw new DukeInvalidArgumentException();
         }
