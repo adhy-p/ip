@@ -85,7 +85,16 @@ public class Parser {
             }
             return new eventDeadlineCommand(TYPE, description, timeOfEvent);
         }
-
+        if (input.startsWith("find")) {
+            String filter;
+            try {
+                filter = input.split("find")[1].trim();
+            } catch (IndexOutOfBoundsException e) {
+                UI.findWithoutArgumentMessage();
+                return new listCommand();
+            }
+            return new findCommand(filter);
+        }
         // default
         return new unknownCommand(input);
     }

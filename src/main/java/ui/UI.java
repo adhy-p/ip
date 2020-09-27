@@ -116,4 +116,22 @@ public class UI {
         System.out.println("Invalid argument. Please try again.");
         printLine();
     }
+
+    public static void findWithoutArgumentMessage() {
+        printLine();
+        System.out.println("Missing argument. Executing list command.");
+        printLine();
+    }
+    public static void printFilteredList(ArrayList<Task> tasks) {
+        printLine();
+        if (!tasks.isEmpty()) {
+            int i = 1;
+            for (Task item : tasks) {
+                System.out.println((i++) + ". " + item);
+            }
+        } else {
+            System.out.println("Found no matching tasks!");
+        }
+        printLine();
+    }
 }
