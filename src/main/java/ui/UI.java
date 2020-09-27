@@ -116,4 +116,11 @@ public class UI {
         System.out.println("Invalid argument. Please try again.");
         printLine();
     }
+
+    public static void invalidDateMessage() {
+        printLine();
+        System.out.println("Date should be in the format of YYYY-MM-DD HHmm");
+        System.out.println("Type 0000 for the time if you don't want to include the time");
+        printLine();
+    }
 }
