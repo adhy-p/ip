@@ -4,6 +4,7 @@ import exception.DukeInvalidArgumentException;
 import ui.UI;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 
 public class TaskList {
@@ -40,5 +41,11 @@ public class TaskList {
 
     public ArrayList<Task> getTasks() {
         return tasks;
+    }
+
+    public ArrayList<Task> findTasks(String filter){
+        return tasks.stream()
+                .filter(task -> task.getDescription().contains(filter))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
