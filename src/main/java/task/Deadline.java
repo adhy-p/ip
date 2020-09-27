@@ -1,26 +1,37 @@
 package task;
 
+import exception.DukeInvalidArgumentException;
+
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime by;
     public static final String type = "D";
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DukeInvalidArgumentException {
         super(description);
-        this.by = by;
+        try {
+            this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new DukeInvalidArgumentException();
+        }
     }
 
     public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
-        this.by = by;
+        this.by = LocalDateTime.parse(by);
     }
 
-    public String getBy() {
+    public LocalDateTime getBy() {
         return by;
     }
 
     @Override
     public String toString() {
-        return "[" + type + "]" + super.toString() + " (by: " + by + ")";
+        return "[" + type + "]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("d MMM yyyy hh:mm")) + ")";
     }
 
     @Override

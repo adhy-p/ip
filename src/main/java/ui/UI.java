@@ -122,6 +122,12 @@ public class UI {
         System.out.println("Missing argument. Executing list command.");
         printLine();
     }
+    public static void invalidDateMessage() {
+        printLine();
+        System.out.println("Date should be in the format of YYYY-MM-DD HHmm");
+        System.out.println("Type 0000 for the time if you don't want to include the time");
+        printLine();
+    }
     public static void printFilteredList(ArrayList<Task> tasks) {
         printLine();
         if (!tasks.isEmpty()) {

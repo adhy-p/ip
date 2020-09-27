@@ -1,9 +1,11 @@
 package command;
 
+import exception.DukeInvalidArgumentException;
 import storage.Storage;
 import task.Event;
 import task.Deadline;
 import task.TaskList;
+import ui.UI;
 
 public class eventDeadlineCommand extends Command {
     private String type;
@@ -19,9 +21,20 @@ public class eventDeadlineCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) {
         if (type.equals("event")) {
-            tasks.addToList(new Event(description, timeOfEvent));
+            try {
+                Event event = new Event(description, timeOfEvent);
+                tasks.addToList(event);
+            } catch (DukeInvalidArgumentException e) {
+                UI.invalidDateMessage();
+            }
+
         } else {
-            tasks.addToList(new Deadline(description, timeOfEvent));
+            try {
+                Deadline deadline = new Deadline(description, timeOfEvent);
+                tasks.addToList(deadline);
+            } catch (DukeInvalidArgumentException e) {
+                UI.invalidDateMessage();
+            }
         }
     }
 
