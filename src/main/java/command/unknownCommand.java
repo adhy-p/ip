@@ -1,6 +1,5 @@
 package command;
 
-import exception.DukeInvalidArgumentException;
 import storage.Storage;
 import task.TaskList;
 import ui.UI;
@@ -13,9 +12,8 @@ public class unknownCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Storage storage) throws DukeInvalidArgumentException {
+    public void execute(TaskList tasks, Storage storage) {
         UI.handleUnknownCommandMessage(description);
-        throw new DukeInvalidArgumentException();
     }
 
     @Override

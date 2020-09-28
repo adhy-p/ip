@@ -1,6 +1,14 @@
 package parser;
 
-import command.*;
+import command.Command;
+import command.byeCommand;
+import command.deleteCommand;
+import command.doneCommand;
+import command.eventDeadlineCommand;
+import command.findCommand;
+import command.listCommand;
+import command.todoCommand;
+import command.unknownCommand;
 import exception.DukeInvalidArgumentException;
 import task.TaskList;
 import ui.UI;
@@ -14,25 +22,25 @@ public class Parser {
             return new listCommand();
         }
         if (input.startsWith("done")) {
-            int index = -1;
+            int index;
             try {
                 index = Integer.parseInt(input.split("done")[1].trim());
-            }  catch (IndexOutOfBoundsException | NumberFormatException e) {
-                UI.doneMessage();
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                throw new DukeInvalidArgumentException();
             }
-            if(index < 1 || index > tasks.getTasks().size()){
+            if (index < 1 || index > tasks.getTasks().size()) {
                 throw new DukeInvalidArgumentException();
             }
             return new doneCommand(index);
         }
         if (input.startsWith("delete")) {
-            int index = -1;
+            int index;
             try {
                 index = Integer.parseInt(input.split("delete")[1].trim());
-            }  catch (IndexOutOfBoundsException | NumberFormatException e) {
-                UI.invalidIndexMessage();
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                throw new DukeInvalidArgumentException();
             }
-            if(index < 1 || index > tasks.getTasks().size()){
+            if (index < 1 || index > tasks.getTasks().size()) {
                 throw new DukeInvalidArgumentException();
             }
             return new deleteCommand(index);
@@ -42,7 +50,6 @@ public class Parser {
             try {
                 description = input.trim().split("todo")[1].trim();
             } catch (IndexOutOfBoundsException e) {
-                UI.noDescriptionExceptionMessage();
                 throw new DukeInvalidArgumentException();
             }
             return new todoCommand(description);
@@ -53,7 +60,6 @@ public class Parser {
             try {
                 deadlineDetails = input.trim().split("deadline")[1];
             } catch (IndexOutOfBoundsException e) {
-                UI.noDescriptionExceptionMessage();
                 throw new DukeInvalidArgumentException();
             }
             String description, timeOfEvent;
@@ -61,7 +67,6 @@ public class Parser {
                 description = deadlineDetails.split("/by")[0].trim();
                 timeOfEvent = deadlineDetails.split("/by")[1].trim();
             } catch (IndexOutOfBoundsException e) {
-                UI.notEnoughArgumentsMessage();
                 throw new DukeInvalidArgumentException();
             }
             return new eventDeadlineCommand(TYPE, description, timeOfEvent);
@@ -72,7 +77,6 @@ public class Parser {
             try {
                 eventDetails = input.trim().split("event")[1];
             } catch (IndexOutOfBoundsException e) {
-                UI.noDescriptionExceptionMessage();
                 throw new DukeInvalidArgumentException();
             }
             String description, timeOfEvent;
@@ -80,7 +84,6 @@ public class Parser {
                 description = eventDetails.split("/at")[0].trim();
                 timeOfEvent = eventDetails.split("/at")[1].trim();
             } catch (IndexOutOfBoundsException e) {
-                UI.notEnoughArgumentsMessage();
                 throw new DukeInvalidArgumentException();
             }
             return new eventDeadlineCommand(TYPE, description, timeOfEvent);

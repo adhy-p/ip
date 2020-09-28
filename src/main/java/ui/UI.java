@@ -33,7 +33,7 @@ public class UI {
 
     public static void addToListMessage(ArrayList<Task> tasks) {
         printLine();
-        System.out.println("Got it bro. I've added this task:");
+        System.out.println("Got it. I've added this task:");
         System.out.println(tasks.get(tasks.size() - 1));
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         printLine();
@@ -42,20 +42,7 @@ public class UI {
     public static void handleUnknownCommandMessage(String input) {
         printLine();
         System.out.println("Huh? " + input + "?");
-        System.out.println("You haven't read the documentation, have you?");
-        printLine();
-    }
-
-    public static void noDescriptionExceptionMessage() {
-        printLine();
-        System.out.println("Please give me more details..");
-        printLine();
-    }
-
-    public static void notEnoughArgumentsMessage() {
-        printLine();
-        System.out.println("Forgot to type something?");
-        System.out.println("I need both the description and the time!!");
+        System.out.println("Invalid command. Please try again.");
         printLine();
     }
 
@@ -87,18 +74,6 @@ public class UI {
         printLine();
     }
 
-    public static void invalidIndexMessage() {
-        printLine();
-        System.out.println("Hey bro.. Don't try to break me okay.. Invalid index.");
-        printLine();
-    }
-
-    public static void doneMessage() {
-        printLine();
-        System.out.println("Done using the program? You should type \"bye\" instead.");
-        printLine();
-    }
-
     public static void failToWriteMessage() {
         printLine();
         System.out.println("Failed to write data");
@@ -120,14 +95,14 @@ public class UI {
     public static void findWithoutArgumentMessage() {
         printLine();
         System.out.println("Missing argument. Executing list command.");
-        printLine();
     }
+
     public static void invalidDateMessage() {
         printLine();
         System.out.println("Date should be in the format of YYYY-MM-DD HHmm");
-        System.out.println("Type 0000 for the time if you don't want to include the time");
         printLine();
     }
+
     public static void printFilteredList(ArrayList<Task> tasks) {
         printLine();
         if (!tasks.isEmpty()) {
