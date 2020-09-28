@@ -13,7 +13,28 @@ import exception.DukeInvalidArgumentException;
 import task.TaskList;
 import ui.UI;
 
+/**
+ * Parses the command given by the user
+ * List of available commands:
+ * bye
+ * deadline DESCRIPTION /by YYYY-MM-DD HHmm
+ * delete INDEX
+ * done INDEX
+ * event DESCRIPTION /at YYYY-MM-DD HHmm
+ * find KEYWORD
+ * list
+ * todo DESCRIPTION
+ */
 public class Parser {
+    /**
+     * Returns a Command object based on the input.
+     * If the command is not defined, return unknownCommand object.
+     *
+     * @param tasks the current list of Task
+     * @param input the input given by the user
+     * @return Command object
+     * @throws DukeInvalidArgumentException If the argument given is in the wrong format
+     */
     public static Command parse(TaskList tasks, String input) throws DukeInvalidArgumentException {
         if (input.trim().equals("bye")) {
             return new byeCommand();
@@ -98,7 +119,6 @@ public class Parser {
             }
             return new findCommand(filter);
         }
-        // default
         return new unknownCommand(input);
     }
 }
