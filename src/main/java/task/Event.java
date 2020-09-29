@@ -3,6 +3,7 @@ package task;
 import exception.DukeInvalidArgumentException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -10,13 +11,13 @@ import java.time.format.DateTimeParseException;
  * Represents a task at a specific time
  */
 public class Event extends Task {
-    protected LocalDate at;
+    protected LocalDateTime at;
     public static final String type = "E";
 
     public Event(String description, String at) throws DukeInvalidArgumentException {
         super(description);
         try {
-            this.at = LocalDate.parse(at, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            this.at = LocalDateTime.parse(at, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } catch (DateTimeParseException e) {
             throw new DukeInvalidArgumentException();
         }
@@ -24,7 +25,7 @@ public class Event extends Task {
 
     public Event(String description, String at, boolean isDone) {
         super(description, isDone);
-        this.at = LocalDate.parse(at);
+        this.at = LocalDateTime.parse(at);
     }
 
     /**
@@ -32,7 +33,7 @@ public class Event extends Task {
      *
      * @return at the time of the event
      */
-    public LocalDate getAt() {
+    public LocalDateTime getAt() {
         return at;
     }
 
