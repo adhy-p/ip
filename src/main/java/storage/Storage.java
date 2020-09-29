@@ -1,5 +1,6 @@
 package storage;
 
+import exception.DukeInvalidArgumentException;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -12,6 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the storage for saving and loading data
+ */
 public class Storage {
     private ArrayList<Task> tasks = new ArrayList<>();
     private String filePath;
@@ -21,6 +25,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Serializes each task into a string and write it to a file
+     *
+     * @param tasks the current list of Task
+     * @throws IOException If the system failed to write the save data
+     */
     public void saveData(ArrayList<Task> tasks) throws IOException {
         StringBuilder line = new StringBuilder();
         for (Task task : tasks) {
@@ -32,6 +42,13 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Deserializes the string from save file and parses them into commands
+     * Adds each command to the list, and returns the list
+     *
+     * @return List of tasks
+     * @throws FileNotFoundException if no save file was found
+     */
     public ArrayList<Task> loadData() throws FileNotFoundException {
         File directory = new File(SAVEDIR);
         if (!directory.exists()) {
@@ -73,9 +90,15 @@ public class Storage {
         return task;
     }
 
-    // T|1/0|Description
-    // D|1/0|Description|by
-    // E|1/0|Description|at
+    /**
+     * Serializes the task to strings, delimited by "|"
+     * Format: TYPE | ISDONE | DESCRIPTION | TIME
+     * Example:
+     * T|1|something
+     * D|0|another thing|2020-02-01T00:00
+     *
+     * @param task Task to be delimited
+     */
     private String serializeTask(Task task) {
         String result = "";
         result += task.getTaskType() + "|";

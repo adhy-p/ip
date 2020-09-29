@@ -7,6 +7,10 @@ import task.Deadline;
 import task.TaskList;
 import ui.UI;
 
+/**
+ * Represents the event and deadline command, the command given by a user
+ * to add a task with a specific time / deadline
+ */
 public class eventDeadlineCommand extends Command {
     private String type;
     private String description;
@@ -18,6 +22,12 @@ public class eventDeadlineCommand extends Command {
         this.timeOfEvent = timeOfEvent;
     }
 
+    /**
+     * Adds event/deadline task to the list
+     *
+     * @param tasks the current list of tasks
+     * @param storage the storage object to save the data
+     */
     @Override
     public void execute(TaskList tasks, Storage storage) {
         if (type.equals("event")) {
@@ -38,6 +48,12 @@ public class eventDeadlineCommand extends Command {
         }
     }
 
+    /**
+     * Returns a boolean to determine whether the app must continue
+     * to read inputs or not
+     *
+     * @return false the app will continue after executing this command
+     */
     @Override
     public boolean isExit() {
         return false;
