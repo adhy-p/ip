@@ -1,11 +1,14 @@
 # The Duke Project User Guide
 Duke is a command line interface (CLI) application written in Java. This desktop application allows users to keep track manage their tasks. Users can add, mark as done, find, and delete tasks by just typing one line of command. 
+
 ## Table of Content
 - [About](#about-this-user-guide)
 - [Getting Started](#getting-started)
 - [Commands](#commands)
+
 ## About this User Guide
 This user guide provides a brief documentation on how to install and use Duke project to help you manage your tasks
+
 ## Getting started
 Before we start, make sure that you have Java 11 or later installed on your computer. If you don't have Java installed, please install it first [here](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 
